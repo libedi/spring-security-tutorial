@@ -36,4 +36,14 @@ public class HomeController {
 		return "home";
 	}
 	
+	/**
+	 * login form test
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/loginForm")
+	public String loginForm(Model model){
+		return "loginForm";
+	}
+	
 }
