@@ -23,6 +23,20 @@
 	
 	<context:component-scan base-package="com.libedi.test" />
 	
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	 	<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean>
+	
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	    <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <beans:property name="url" value="jdbc:mysql://192.168.118.128:3306/db_test?characterEncoding=utf8"/>
+	    <beans:property name="username" value="root"/>
+	    <beans:property name="password" value="tkdwns8327"/>
+	</beans:bean>
 	
 	
 </beans:beans>
