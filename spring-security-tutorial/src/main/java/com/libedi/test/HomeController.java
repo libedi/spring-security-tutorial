@@ -41,9 +41,24 @@ public class HomeController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/loginForm")
+	@RequestMapping(value="/login")
 	public String loginForm(Model model){
-		return "loginForm";
+		return "login";
+	}
+	
+	/**
+	 * authentication test
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/loginSuccess")
+	public String loginSuccess(Model model){
+		return "loginSuccess";
+	}
+	
+	@RequestMapping(value="/loginDuplicate")
+	public String loginDuplicate(Model model){
+		return "loginDuplicate";
 	}
 	
 }
