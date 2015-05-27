@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+		
+	<http auto-config="true">
+		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/loginDuplicate" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <!--
+        	 login-page : 로그인 페이지 주소지정
+        	 username-parameter : 로그인 페이지 form의 username 변수명
+        	 password-parameter : 로그인 페이지 form의 password 변수명
+        	 login-processing-url : 로그인 페이지 form action 주소명
+        	 default-target-url : 로그인 성공시 호출할 주소
+        	 authentication-failure-url : 로그인 실패시 호출할 주소
+         -->
+        <form-login login-page="/login"
+        			username-parameter="id"
+        			password-parameter="pw"
+        			login-processing-url="/loginProcess"
+        			default-target-url="/loginSuccess"
+        			authentication-failure-url="/login"
+        			always-use-default-target="true"/>
+        
+        <!--
+        	 invalidate-session : 세션삭제여부묻기
+        	 logout-url : 로그아웃 주소경로
+        	 logout-success-url : 로그아웃 성공시 호출할 주소
+         -->
+        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/"/>
+        
+        <!--
+        	 max-sessions : 중복 로그인 세션수. 1로 지정해야 중복 로그인 방지
+        	 expired-url : 중복 로그인으로 끊어진 이전 세션의 원인을 알려줄 주소를 지정
+         -->
+        <session-management>
+        	<concurrency-control max-sessions="1" expired-url="/loginDuplicate"/>
+        </session-management>
+    </http>
+    
+    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+ 
+    <authentication-manager>
+        <authentication-provider ref="customAuthenticationProvider"/>
+    </authentication-manager>
+    
+    <beans:bean id="customAuthenticationProvider" class="com.libedi.test.authentication.CustomAuthenticationProvider" />
+
+</beans:beans>
