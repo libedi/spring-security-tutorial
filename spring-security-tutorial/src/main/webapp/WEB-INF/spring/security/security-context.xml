@@ -43,7 +43,10 @@
     
     <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
  
-    <authentication-manager>
+	<!--
+		 erase-credentials : 인증 후에도 credential(password)가 세션에서 삭제되지 않게 한다.
+	 -->
+    <authentication-manager erase-credentials="false">
         <authentication-provider ref="customAuthenticationProvider"/>
     </authentication-manager>
     

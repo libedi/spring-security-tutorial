@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +53,12 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value="/loginSuccess")
-	public String loginSuccess(Model model){
+	public String loginSuccess(Model model, Authentication authentication){
+		model.addAttribute("id", authentication.getPrincipal().toString());
+		
+		// spring-security 설정파일에서 authentication-manager 에 erase-credentials="false" 를 하지 않으면
+		// 인증 후에는 NULL처리가 된다.
+//		model.addAttribute("pw", authentication.getCredentials().toString());
 		return "loginSuccess";
 	}
 	

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+ID : ${id }<br/>
 Login Success!
 <button type="button" onclick="javascript:location.href='/test/logout';">logout</button>
 </body>
