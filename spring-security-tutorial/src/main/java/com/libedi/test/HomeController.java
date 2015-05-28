@@ -55,7 +55,6 @@ public class HomeController {
 	@RequestMapping(value="/loginSuccess")
 	public String loginSuccess(Model model, Authentication authentication){
 		model.addAttribute("id", authentication.getPrincipal().toString());
-		
 		// spring-security 설정파일에서 authentication-manager 에 erase-credentials="false" 를 하지 않으면
 		// 인증 후에는 NULL처리가 된다.
 //		model.addAttribute("pw", authentication.getCredentials().toString());
